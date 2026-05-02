@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casamento Memorável — Método Completo</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💍</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+:root{
+  --rose:#C2185B;--rose-dark:#880E4F;--rose-deeper:#6A0636;
+  --rose-pale:#FFF0F5;--rose-muted:#F9E4EE;--rose-border:#F0C4D8;
+  --text-dark:#1A1A1A;--text-mid:#3D3D3D;--text-soft:#6B6B6B;--text-light:#9E9E9E;
+  --white:#FFFFFF;--off-white:#FAFAFA;--section-alt:#FDF6FA;
+  --shadow-sm:0 2px 12px rgba(194,24,91,.08);
+  --shadow-md:0 6px 28px rgba(194,24,91,.14);
+  --shadow-lg:0 16px 56px rgba(194,24,91,.18);
+  --radius:18px;--radius-sm:10px;--radius-pill:100px;
+}
+
+body{font-family:'Nunito',sans-serif;background:var(--white);color:var(--text-dark);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.container{max-width:700px;margin:0 auto;padding:0 22px}
+section{padding:72px 0}
+
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.1rem,6.5vw,3.2rem);font-weight:700;line-height:1.15;letter-spacing:-.025em;color:var(--text-dark)}
+h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.65rem,4.5vw,2.4rem);font-weight:600;line-height:1.25;letter-spacing:-.015em;color:var(--text-dark)}
+h3{font-size:15px;font-weight:700;color:var(--text-dark);letter-spacing:.01em}
+p{color:var(--text-mid);line-height:1.75}
+.lead{font-size:17px;line-height:1.7;color:var(--text-mid)}
+.muted{color:var(--text-soft);font-size:13px}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);background:var(--rose-pale);border:1px solid var(--rose-border);padding:5px 14px;border-radius:var(--radius-pill);margin-bottom:22px}
+.badge::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--rose);flex-shrink:0}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;padding:15px 34px;border-radius:var(--radius-pill);border:none;cursor:pointer;transition:all .22s ease;text-decoration:none;letter-spacing:.02em;position:relative;overflow:hidden}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background .2s}
+.btn:hover::after{background:rgba(255,255,255,.08)}
+.btn-primary{background:linear-gradient(135deg,var(--rose),var(--rose-dark));color:var(--white);box-shadow:0 6px 24px rgba(194,24,91,.38),0 2px 6px rgba(194,24,91,.2)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(194,24,91,.48),0 3px 8px rgba(194,24,91,.25)}
+.btn-secondary{background:transparent;color:var(--rose);border:2px solid var(--rose)}
+.btn-secondary:hover{background:var(--rose-pale);transform:translateY(-1px)}
+.btn-block{display:flex;width:100%}
+.btn-xl{font-size:17px;padding:18px 40px}
+.btn-arrow::after{content:' →'}
+
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--rose-border),transparent);margin:36px 0}
+
+/* NOTIFICATION FEED */
+#notif-feed{position:fixed;bottom:100px;left:20px;z-index:9998;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.notif-toast{background:var(--white);border:1px solid var(--rose-border);border-radius:var(--radius-sm);padding:10px 14px;box-shadow:0 4px 20px rgba(0,0,0,.12);font-size:12px;color:var(--text-dark);max-width:240px;display:flex;align-items:flex-start;gap:8px;opacity:0;transform:translateX(-20px);transition:opacity .4s,transform .4s;pointer-events:none}
+.notif-toast.show{opacity:1;transform:translateX(0)}
+.notif-toast.hide{opacity:0;transform:translateX(-20px)}
+.notif-dot{min-width:8px;height:8px;border-radius:50%;background:var(--rose);margin-top:3px;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* COUNTDOWN */
+.countdown-bar{background:linear-gradient(135deg,var(--rose-dark),var(--rose-deeper));color:var(--white);padding:14px 22px;border-radius:var(--radius);margin-bottom:28px;text-align:center}
+.cd-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.85;margin-bottom:8px}
+.countdown-digits{display:flex;justify-content:center;align-items:center;gap:10px}
+.cd-unit{text-align:center}
+.cd-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;line-height:1;background:rgba(255,255,255,.15);border-radius:8px;padding:4px 12px;min-width:52px;display:block}
+.cd-lbl{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-top:4px;display:block}
+.cd-sep{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;opacity:.5;margin-top:-8px}
+
+/* URGENCY */
+.urgency-badge{display:inline-flex;align-items:center;gap:7px;background:#FFF3CD;border:1px solid #F59E0B;color:#92400E;font-size:12px;font-weight:700;padding:7px 16px;border-radius:var(--radius-pill);margin-bottom:20px;animation:urgency-pulse 2s ease-in-out infinite}
+@keyframes urgency-pulse{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.3)}50%{box-shadow:0 0 0 6px rgba(245,158,11,0)}}
+.urgency-badge::before{content:'🔥';font-size:14px}
+
+/* COMPARATIVO */
+.comparativo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.comp-col{border-radius:var(--radius);padding:24px 22px;border:1.5px solid var(--rose-border)}
+.comp-col.sem{background:#FFF8F8;border-color:#FFCDD2}
+.comp-col.com{background:var(--rose-pale);border-color:var(--rose)}
+.comp-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px}
+.comp-col.sem .comp-title{color:#C62828}
+.comp-col.com .comp-title{color:var(--rose)}
+.comp-item{font-size:13px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.06);display:flex;align-items:flex-start;gap:8px;color:var(--text-mid);line-height:1.45}
+.comp-item:last-child{border-bottom:none}
+.comp-icon{flex-shrink:0;font-size:13px;margin-top:1px}
+.comp-total{margin-top:14px;padding:10px 14px;border-radius:var(--radius-sm);text-align:center;font-weight:700;font-size:13px}
+.comp-col.sem .comp-total{background:#FFCDD2;color:#C62828}
+.comp-col.com .comp-total{background:var(--rose);color:white}
+
+/* HERO */
+.hero{position:relative;background:linear-gradient(170deg,var(--rose-pale) 0%,#fff9fc 55%,var(--white) 100%);padding:80px 0 60px;text-align:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('casamento.webp');background-size:cover;background-position:center 30%;opacity:.06;filter:saturate(.4)}
+.hero-content{position:relative;z-index:1}
+.hero h1{margin-bottom:20px}
+.hero h1 em{color:var(--rose);font-style:italic}
+.hero .subheadline{font-size:clamp(15px,2.5vw,18px);color:var(--text-soft);max-width:520px;margin:0 auto 36px;line-height:1.65}
+.hero-meta{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:18px;flex-wrap:wrap}
+.hero-meta-item{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-soft);font-weight:600}
+.hero-meta-item svg{color:var(--rose)}
+.petal{position:absolute;border-radius:50% 0 50% 0;background:var(--rose);opacity:.035;pointer-events:none}
+.petal-1{width:220px;height:220px;top:-60px;left:-80px;transform:rotate(-30deg)}
+.petal-2{width:160px;height:160px;bottom:-40px;right:-50px;transform:rotate(20deg)}
+.petal-3{width:80px;height:80px;top:40px;right:10%;transform:rotate(45deg);opacity:.025}
+
+/* MOCKUP */
+.mockup-section{padding:0 0 64px;text-align:center;background:linear-gradient(to bottom,var(--rose-pale),var(--white))}
+.mockup-wrap{position:relative;display:inline-block}
+.mockup-wrap::before{content:'';position:absolute;inset:16px;background:radial-gradient(ellipse at center,rgba(194,24,91,.18),transparent 70%);filter:blur(24px);border-radius:50%;z-index:0}
+.mockup-wrap img{position:relative;z-index:1;border-radius:var(--radius);box-shadow:var(--shadow-lg),0 2px 8px rgba(0,0,0,.06);width:100%;max-width:660px}
+
+/* PROOF FLASH */
+.proof-flash{background:var(--white);border:1.5px solid var(--rose-border);border-radius:var(--radius);padding:32px 36px;box-shadow:var(--shadow-sm);overflow:hidden;display:flex;flex-direction:column;text-align:center}
+.proof-flash-img{width:100%;max-width:600px;height:auto;display:block;margin:0 auto;border-radius:16px;box-shadow:var(--shadow-md)}
+.proof-flash-body{padding:24px 0 0;text-align:center}
+.proof-flash blockquote{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-style:italic;color:var(--text-dark);line-height:1.6;margin-bottom:14px}
+.proof-flash cite{font-size:13px;color:var(--text-soft);font-style:normal;font-weight:600}
+
+/* DOR + PROMESSA */
+.pain-section{background:var(--section-alt)}
+.callout-box{background:var(--white);border-left:4px solid var(--rose);border-radius:0 var(--radius) var(--radius) 0;padding:22px 28px;margin:28px 0;box-shadow:var(--shadow-sm)}
+.callout-box p{font-size:16px;color:var(--text-dark);line-height:1.75}
+.callout-box strong{color:var(--rose)}
+
+/* DELIVERABLES */
+.deliverables-list{list-style:none;margin-top:36px;display:flex;flex-direction:column;gap:4px}
+.deliverable-item{display:flex;gap:18px;align-items:flex-start;padding:20px 24px;border-radius:var(--radius);transition:background .18s,box-shadow .18s}
+.deliverable-item:hover{background:var(--rose-pale);box-shadow:var(--shadow-sm)}
+.deliverable-icon{width:80px;height:80px;border-radius:var(--radius-sm);object-fit:cover;flex-shrink:0;box-shadow:var(--shadow-sm)}
+.deliverable-text{flex:1}
+.deliverable-text h3{font-size:15px;margin-bottom:4px}
+.deliverable-text p{font-size:13.5px;color:var(--text-soft);line-height:1.6}
+
+/* MECHANISM */
+.mechanism-section{background:var(--section-alt)}
+.steps-grid{display:flex;flex-direction:column;gap:0;margin-top:40px;position:relative}
+.steps-grid::before{content:'';position:absolute;left:23px;top:40px;bottom:40px;width:2px;background:linear-gradient(to bottom,var(--rose-border),var(--rose-pale))}
+.step{display:flex;gap:24px;align-items:flex-start;padding:16px 0 32px;position:relative}
+.step:last-child{padding-bottom:0}
+.step-num{min-width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--rose-dark));color:var(--white);font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 16px rgba(194,24,91,.3);position:relative;z-index:1}
+.step-body h3{font-size:16px;font-weight:700;margin-bottom:6px;padding-top:12px}
+.step-body p{font-size:14.5px;color:var(--text-soft);line-height:1.65}
+
+/* BONUS */
+.bonus-cards{display:flex;flex-direction:column;gap:16px;margin-top:36px}
+.bonus-card{background:var(--white);border:1.5px solid var(--rose-border);border-radius:var(--radius);padding:26px 28px;display:flex;gap:18px;align-items:flex-start;box-shadow:var(--shadow-sm);transition:transform .2s,box-shadow .2s}
+.bonus-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.bonus-icon-wrap{min-width:48px;height:48px;border-radius:var(--radius-sm);background:var(--rose-pale);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.bonus-tag{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rose);margin-bottom:5px}
+.bonus-card h3{font-size:15px;margin-bottom:5px}
+.bonus-card p{font-size:13.5px;color:var(--text-soft);line-height:1.6}
+
+/* TESTIMONIALS */
+.testimonials-section{background:var(--section-alt)}
+.proof-social-img{width:100%;max-width:560px;border-radius:var(--radius);box-shadow:var(--shadow-md);margin:0 auto 40px}
+.testimonial-grid{display:flex;flex-direction:column;gap:20px}
+.testimonial-card{background:var(--white);border:1.5px solid var(--rose-border);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow-sm);position:relative}
+.testimonial-card::before{content:'"';font-family:'Cormorant Garamond',serif;font-size:5rem;color:var(--rose-border);position:absolute;top:-10px;left:20px;line-height:1;pointer-events:none}
+.stars{color:#F59E0B;font-size:14px;letter-spacing:2px;margin-bottom:14px}
+.testimonial-card blockquote{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--text-dark);line-height:1.6;margin-bottom:18px;position:relative;z-index:1}
+.testimonial-cite{display:flex;align-items:center;gap:10px}
+.cite-name{font-size:13px;font-weight:700;color:var(--text-dark)}
+.cite-loc{font-size:12px;color:var(--text-light)}
+/* TOOLS GRID */
+.tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:8px}
+.tool-item{background:var(--white);border:1.5px solid var(--rose-border);border-radius:12px;padding:14px 12px 16px;box-shadow:0 2px 12px rgba(194,24,91,.08);display:flex;flex-direction:column;align-items:center;gap:12px;transition:transform .2s,box-shadow .2s}
+.tool-item:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.tool-item img{width:100%;height:auto;min-height:120px;object-fit:cover;border-radius:8px;display:block}
+.tool-caption{font-size:12px;font-weight:700;color:var(--text-soft);text-align:center;letter-spacing:.02em;line-height:1.3}
+@media(max-width:600px){.tools-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:340px){.tools-grid{grid-template-columns:1fr}}
+
+/* OFFER */
+.offer-section{background:linear-gradient(160deg,var(--rose-pale) 0%,#fff 60%)}
+.plan-stack{display:flex;flex-direction:column;gap:16px;margin-top:36px}
+.plan-card{background:var(--white);border:2px solid var(--rose-border);border-radius:var(--radius);padding:34px 32px;position:relative;transition:transform .2s,box-shadow .2s}
+.plan-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.plan-card.featured{border-color:var(--rose);box-shadow:0 0 0 4px rgba(194,24,91,.08),var(--shadow-md)}
+.plan-ribbon{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,var(--rose),var(--rose-dark));color:var(--white);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 18px;border-radius:var(--radius-pill);white-space:nowrap;box-shadow:0 3px 12px rgba(194,24,91,.3)}
+.plan-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--text-dark);margin-bottom:6px}
+.plan-desc{font-size:13px;color:var(--text-soft);margin-bottom:22px}
+.price-display{display:flex;align-items:baseline;gap:4px;margin-bottom:6px}
+.price-curr{font-size:20px;color:var(--rose);font-weight:700}
+.price-val{font-family:'Cormorant Garamond',serif;font-size:3.6rem;font-weight:700;color:var(--rose);line-height:1}
+.price-note{font-size:12.5px;color:var(--text-soft);margin-bottom:26px}
+.seals{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:24px;flex-wrap:wrap}
+.seal-img{width:80px;height:80px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.1));transition:transform .2s}
+.seal-img:hover{transform:scale(1.05)}
+
+/* AUTHOR */
+.author-section{background:var(--white)}
+.author-card{background:var(--rose-pale);border:1.5px solid var(--rose-border);border-radius:var(--radius);padding:40px 36px;display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:start;box-shadow:var(--shadow-sm)}
+.author-photo-wrap{display:flex;flex-direction:column;align-items:center;gap:10px}
+.author-photo{width:110px;height:110px;border-radius:50%;object-fit:cover;border:3px solid var(--rose);box-shadow:0 0 0 5px rgba(194,24,91,.12),var(--shadow-sm)}
+.author-name-tag{font-size:13px;font-weight:700;color:var(--rose);background:var(--white);border:1px solid var(--rose-border);border-radius:var(--radius-pill);padding:3px 12px;white-space:nowrap}
+.author-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;margin-bottom:5px}
+.author-stats{display:flex;gap:20px;margin:16px 0;flex-wrap:wrap}
+.stat-item{text-align:center}
+.stat-val{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--rose);display:block;line-height:1}
+.stat-lbl{font-size:11px;color:var(--text-soft);margin-top:2px;font-weight:600}
+.author-bio{font-size:14.5px;color:var(--text-mid);line-height:1.7;margin-bottom:14px}
+.noivas-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--rose),var(--rose-dark));color:var(--white);font-size:12px;font-weight:700;padding:8px 16px;border-radius:var(--radius-pill);margin-top:4px;box-shadow:0 4px 14px rgba(194,24,91,.3)}
+
+/* FAQ */
+.faq-section{background:var(--section-alt)}
+.faq-list{margin-top:40px;display:flex;flex-direction:column;gap:0}
+.faq-item{border-bottom:1px solid var(--rose-border);padding:24px 0}
+.faq-item:first-child{border-top:1px solid var(--rose-border)}
+.faq-q{display:flex;align-items:flex-start;gap:14px;font-size:15px;font-weight:700;color:var(--text-dark);margin-bottom:12px}
+.faq-icon{min-width:26px;height:26px;border-radius:50%;background:var(--rose);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px}
+.faq-a{font-size:14.5px;color:var(--text-soft);line-height:1.75;padding-left:40px}
+
+/* SUMMARY */
+.summary-section{background:var(--white)}
+.summary-bullets{list-style:none;margin:32px 0;display:flex;flex-direction:column;gap:2px}
+.summary-bullets li{display:flex;align-items:center;gap:14px;padding:12px 16px;font-size:15px;font-weight:500;color:var(--text-mid);border-radius:var(--radius-sm);transition:background .15s}
+.summary-bullets li:hover{background:var(--rose-pale)}
+.check-icon{min-width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--rose-dark));color:var(--white);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;box-shadow:0 2px 8px rgba(194,24,91,.25)}
+
+/* FINAL CTA */
+.final-cta{background:linear-gradient(160deg,var(--rose-pale) 0%,#fff5fa 100%);text-align:center;border-top:1px solid var(--rose-border);padding:80px 0}
+.final-cta h2{margin-bottom:16px}
+.final-cta p{margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-meta{display:flex;justify-content:center;gap:24px;margin-top:18px;flex-wrap:wrap}
+.cta-meta-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-soft);font-weight:600}
+
+/* WHATSAPP */
+.wa-float{position:fixed;bottom:26px;right:26px;width:60px;height:60px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(37,211,102,.45),0 2px 8px rgba(0,0,0,.1);z-index:9999;transition:transform .2s,box-shadow .2s;animation:wa-pulse 2.5s ease-in-out 3s infinite}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 10px 32px rgba(37,211,102,.55);animation:none}
+.wa-float svg{width:30px;height:30px;fill:white}
+@keyframes wa-pulse{0%,100%{box-shadow:0 6px 24px rgba(37,211,102,.45)}50%{box-shadow:0 6px 32px rgba(37,211,102,.7),0 0 0 10px rgba(37,211,102,.1)}}
+
+/* FADE-UP */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .55s ease,transform .55s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:768px){
+  .proof-flash{padding:24px}
+  .proof-flash-img{max-width:calc(100% - 30px);border-radius:12px}
+}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  section{padding:52px 0}
+  .hero{padding:60px 0 48px}
+  .final-cta{padding:60px 0}
+  .author-card{grid-template-columns:1fr;text-align:center;padding:32px 24px;gap:20px}
+  .author-photo-wrap{flex-direction:row;align-items:center;gap:14px}
+  .author-stats{justify-content:center}
+  .author-bio{text-align:left}
+  .plan-card{padding:28px 22px}
+  .btn-xl{font-size:15px;padding:16px 28px}
+  .deliverable-item{padding:16px 14px;gap:14px}
+  .bonus-card{padding:22px 18px;gap:14px}
+  .comparativo{grid-template-columns:1fr}
+  #notif-feed{left:12px;bottom:90px}
+  .notif-toast{max-width:200px}
+}
+</style>
+</head>
+<body>
+
+<!-- NOTIFICATION FEED -->
+<div id="notif-feed"></div>
+
+<!-- ═══ 1. HERO ═══ -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="petal petal-1"></div>
+  <div class="petal petal-2"></div>
+  <div class="petal petal-3"></div>
+  <div class="container hero-content">
+    <div class="badge">Método validado por centenas de noivas</div>
+    <h1>Casamento dos sonhos<br>com o orçamento que<br><em>você tem.</em></h1>
+    <p class="subheadline">O método completo para organizar, planejar e executar um casamento lindo — sem assessoria, sem erros e sem improviso.</p>
+    <a href="#oferta" class="btn btn-primary btn-xl btn-arrow">Quero meu Casamento Memorável</a>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        Acesso imediato
+      </div>
+      <div class="hero-meta-item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        Pagamento único
+      </div>
+      <div class="hero-meta-item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        7 dias de garantia
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ 2. MOCKUP ═══ -->
+<section class="mockup-section">
+  <div class="container">
+    <div class="mockup-wrap fade-up">
+      <img src="mockup1.webp" alt="Casamento Memorável — Método Completo: planilha, guia de decoração DIY e checklist" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 3. PROVA SOCIAL RELÂMPAGO ═══ -->
+<section style="padding:0 0 64px;background:var(--white);">
+  <div class="container">
+    <div class="proof-flash fade-up">
+      <img src="casamento.webp" class="proof-flash-img" alt="Casamento memorável" loading="lazy">
+      <div class="proof-flash-body">
+        <blockquote>"Fiz meu casamento para 120 pessoas e gastei R$6.800. Todo mundo achava que tinha custado 30 mil. A decoração ficou linda de verdade."</blockquote>
+        <cite>— Camila R., São Paulo &nbsp;·&nbsp; ★★★★★</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4. DOR + PROMESSA ═══ -->
+<section class="pain-section">
+  <div class="container">
+    <div class="fade-up">
+      <div class="badge">Você não está sozinha nisso</div>
+      <h2>Você já sentiu aquele aperto ao receber o primeiro orçamento?</h2>
+    </div>
+    <p class="lead fade-up" style="margin-top:22px;">Você pesquisa um buffet e o valor não parece real. Abre o Instagram e vê casamentos lindos que parecem custar o que você não tem. E aí vem aquela mistura: tristeza, culpa por querer algo bonito com pouco dinheiro, e o medo de que o seu casamento vá parecer improviso.</p>
+    <p class="lead fade-up" style="margin-top:16px;">O pior não é o preço. É não saber por onde começar — e sentir que está fazendo tudo sozinha, sem um roteiro.</p>
+    <div class="callout-box fade-up">
+      <p>O mercado de casamentos tenta te convencer de que, sem 30, 50 ou 100 mil reais, o seu dia não vai ser especial. <strong>Isso é mentira</strong> — e vamos provar agora.</p>
+    </div>
+    <div class="divider"></div>
+    <div class="fade-up">
+      <h2>A promessa é simples e clara.</h2>
+      <p class="lead" style="margin-top:18px;">Não é sobre cortar gastos. É sobre saber exatamente onde cada centavo precisa ir — para que o resultado seja um casamento que parece ter custado muito mais do que custou. Ninguém precisa saber o valor. Só você.</p>
+    </div>
+    <div style="text-align:center;margin-top:36px;" class="fade-up">
+      <a href="#oferta" class="btn btn-primary btn-arrow">Quero organizar com segurança</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMPARATIVO ═══ -->
+<section style="background:var(--white);">
+  <div class="container">
+    <div class="fade-up">
+      <div class="badge">A diferença é real</div>
+      <h2>Sem o método vs. Com o método</h2>
+      <p style="margin-top:12px;color:var(--text-soft);">Veja na prática o que muda quando você para de improvisar e começa a planejar com método.</p>
+    </div>
+    <div class="comparativo fade-up">
+      <div class="comp-col sem">
+        <div class="comp-title">❌ Sem o método</div>
+        <div class="comp-item"><span class="comp-icon">😰</span>Buffet fechado sem pesquisar: R$8.000</div>
+        <div class="comp-item"><span class="comp-icon">😰</span>Decoração errada na Shopee: R$1.200</div>
+        <div class="comp-item"><span class="comp-icon">😰</span>DJ sem indicação: R$2.500</div>
+        <div class="comp-item"><span class="comp-icon">😰</span>Excesso de comida desperdiçado: R$900</div>
+        <div class="comp-item"><span class="comp-icon">😰</span>Dia caótico, sem roteiro definido</div>
+        <div class="comp-total">Total estimado: R$12.600+</div>
+      </div>
+      <div class="comp-col com">
+        <div class="comp-title">✅ Com o método</div>
+        <div class="comp-item"><span class="comp-icon">🌸</span>Buffet alternativo caprichado: R$2.800</div>
+        <div class="comp-item"><span class="comp-icon">🌸</span>Decoração DIY certeira: R$600</div>
+        <div class="comp-item"><span class="comp-icon">🌸</span>DJ com indicação e negociação: R$1.400</div>
+        <div class="comp-item"><span class="comp-icon">🌸</span>Quantidade calculada com precisão</div>
+        <div class="comp-item"><span class="comp-icon">🌸</span>Script hora a hora — dia tranquilo</div>
+        <div class="comp-total">Total estimado: R$5.800–R$7.000</div>
+      </div>
+    </div>
+    <p class="muted" style="text-align:center;margin-top:14px;">*Economia média de R$5.000 a R$10.000 aplicando o método.</p>
+  </div>
+</section>
+
+<!-- ═══ 5. O QUE VOCÊ RECEBE ═══ -->
+<section style="background:var(--section-alt);">
+  <div class="container">
+    <div class="fade-up">
+      <div class="badge">O que você recebe</div>
+      <h2>6 módulos que resolvem cada etapa do planejamento</h2>
+      <p style="margin-top:14px;color:var(--text-soft);">Cada módulo foi criado para resolver uma dor real — da planilha ao script do grande dia.</p>
+    </div>
+    <ul class="deliverables-list">
+      <li class="deliverable-item fade-up">
+        <img src="planilha.webp" class="deliverable-icon" alt="Planilha de orçamento" loading="lazy">
+        <div class="deliverable-text">
+          <h3>Planilha de Orçamento Real</h3>
+          <p>Controle cada centavo antes de fechar qualquer contrato. Saiba exatamente quanto vai gastar — sem surpresas no final.</p>
+        </div>
+      </li>
+      <li class="deliverable-item fade-up">
+        <img src="cardapio.webp" class="deliverable-icon" alt="Guia de cardápio" loading="lazy">
+        <div class="deliverable-text">
+          <h3>Guia de Cardápio Inteligente</h3>
+          <p>Como montar um menu farto e delicioso gastando até 60% menos que buffets tradicionais. Com calculadora de quantidade por número de convidados.</p>
+        </div>
+      </li>
+      <li class="deliverable-item fade-up">
+        <img src="decoracao.webp" class="deliverable-icon" alt="Guia de decoração DIY" loading="lazy">
+        <div class="deliverable-text">
+          <h3>Guia de Decoração DIY</h3>
+          <p>Onde investir e onde economizar para criar um ambiente que parece saído de uma revista. Passo a passo visual, do zero à execução.</p>
+        </div>
+      </li>
+      <li class="deliverable-item fade-up">
+        <img src="logistica.webp" class="deliverable-icon" alt="Logística do dia" loading="lazy">
+        <div class="deliverable-text">
+          <h3>Logística Completa do Dia</h3>
+          <p>O plano exato para que tudo esteja pronto sem que você chegue exausta no altar. Quem faz o quê, quando, em qual ordem.</p>
+        </div>
+      </li>
+      <li class="deliverable-item fade-up">
+        <img src="compras.webp" class="deliverable-icon" alt="Compras online seguras" loading="lazy">
+        <div class="deliverable-text">
+          <h3>Guia de Compras Online Seguras</h3>
+          <p>Curadoria de fornecedores e produtos testados. Nunca mais comprar na Shopee e receber algo diferente do que esperava.</p>
+        </div>
+      </li>
+      <li class="deliverable-item fade-up">
+        <img src="script.webp" class="deliverable-icon" alt="Script hora a hora" loading="lazy">
+        <div class="deliverable-text">
+          <h3>Script Hora a Hora do Grande Dia</h3>
+          <p>Do momento em que você acorda até a última música. Tudo organizado para você curtir cada detalhe sem se preocupar com logística.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ 6. MECANISMO ═══ -->
+<section class="mechanism-section">
+  <div class="container">
+    <div class="fade-up">
+      <div class="badge">Como funciona</div>
+      <h2>O Método em 3 passos</h2>
+      <p style="margin-top:14px;">Por que outras tentativas falham: sem método, você gasta energia pesquisando coisas soltas no TikTok, fica perdida nas dúvidas e acaba errando onde não devia.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step fade-up">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Mapear e planejar</h3>
+          <p>Você começa pela planilha financeira e pelo cronograma. Sabe exatamente quanto tem, quanto vai gastar e o que precisa fazer em cada semana até o casamento.</p>
+        </div>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Comprar e montar com segurança</h3>
+          <p>Com os guias de fornecedores e decoração, você compra certo na primeira vez. Sem desperdício, sem arrependimento, sem produto que chega errado.</p>
+        </div>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Executar o grande dia com tranquilidade</h3>
+          <p>Com a logística do dia anterior e o script hora a hora, você chega ao altar descansada, organizada e curtindo cada momento — como sempre sonhou.</p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:44px;" class="fade-up">
+      <a href="#oferta" class="btn btn-primary btn-arrow">Quero seguir o método agora</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 7. BÔNUS com countdown e urgência ═══ -->
+<section>
+  <div class="container">
+    <div class="fade-up">
+      <div class="badge">Bônus incluídos no Plano Completo</div>
+      <h2>Mais 3 recursos para o seu casamento ser impecável</h2>
+    </div>
+
+    <div class="fade-up" style="text-align:left;margin-bottom:8px;">
+      <div class="urgency-badge">Últimas 20 vagas com os 3 bônus incluídos</div>
+    </div>
+
+    <div class="countdown-bar fade-up">
+      <div class="cd-label">⏰ Oferta com bônus expira em</div>
+      <div class="countdown-digits">
+        <div class="cd-unit"><span class="cd-num" id="cd-h">47</span><span class="cd-lbl">horas</span></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-unit"><span class="cd-num" id="cd-m">59</span><span class="cd-lbl">min</span></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-unit"><span class="cd-num" id="cd-s">59</span><span class="cd-lbl">seg</span></div>
+      </div>
+    </div>
+
+    <div class="bonus-cards">
+      <div class="bonus-card fade-up">
+        <div class="bonus-icon-wrap">✅</div>
+        <div>
+          <div class="bonus-tag">Bônus 1</div>
+          <h3>Checklist Completo com Prazos</h3>
+          <p>Do pedido de casamento ao grande dia. Com espaço para anotações, lista de convidados e controle de tarefas. Nada vai escapar.</p>
+        </div>
+      </div>
+      <div class="bonus-card fade-up">
+        <div class="bonus-icon-wrap">📄</div>
+        <div>
+          <div class="bonus-tag">Bônus 2</div>
+          <h3>Tudo sobre o Casamento Civil</h3>
+          <p>Regime de bens, documentos, antecedência mínima — e como conseguir se casar de graça no civil. Explicado de forma simples e completa.</p>
+        </div>
+      </div>
+      <div class="bonus-card fade-up">
+        <div class="bonus-icon-wrap">🎨</div>
+        <div>
+          <div class="bonus-tag">Bônus 3</div>
+          <h3>Paleta de Cores em Minutos</h3>
+          <p>A dúvida que toda noiva tem: que cor para as madrinhas, que cor para as mães. Resolvido de vez, com lógica e resultado visual bonito.</p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;" class="fade-up">
+      <a href="#oferta" class="btn btn-primary btn-arrow">Quero o Plano Completo com os Bônus</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 8. DEPOIMENTOS ═══ -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="fade-up">
+      <div class="badge">O que outras noivas dizem</div>
+      <h2>Resultados reais de quem seguiu o método</h2>
+    </div>
+    <img src="prova-social.webp" class="proof-social-img fade-up" alt="Comentários reais de noivas" loading="lazy">
+    <div class="testimonial-grid">
+      <div class="fade-up" style="text-align:center;margin-bottom:20px;">
+        <h3 style="font-size:19px;font-family:'Cormorant Garamond',serif;font-weight:600;margin-bottom:8px;">Ferramentas que você vai usar</h3>
+        <p style="font-size:14px;color:var(--text-soft);">Tudo pronto para você planejar, calcular e executar.</p>
+      </div>
+      <div class="tools-grid fade-up">
+        <div class="tool-item">
+          <img src="calculadora.webp" alt="Calculadora de comida" loading="lazy">
+          <span class="tool-caption">Calculadora de comida</span>
+        </div>
+        <div class="tool-item">
+          <img src="grafico.webp" alt="Gráfico de orçamento" loading="lazy">
+          <span class="tool-caption">Gráfico de orçamento</span>
+        </div>
+        <div class="tool-item">
+          <img src="shopee.webp" alt="Guia Shopee" loading="lazy">
+          <span class="tool-caption">Guia Shopee</span>
+        </div>
+        <div class="tool-item">
+          <img src="trabalho.webp" alt="Organização total" loading="lazy">
+          <span class="tool-caption">Organização total</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 9. OFERTA + PREÇO ═══ -->
+<section class="offer-section" id="oferta">
+  <div class="container">
+    <div class="fade-up">
+      <div class="badge">Escolha seu plano</div>
+      <h2>Invista no seu casamento —<br>não em erros evitáveis</h2>
+      <p style="margin-top:12px;">O método custa menos do que um único item comprado errado.</p>
+    </div>
+    <div class="plan-stack">
+      <div class="plan-card featured fade-up">
+        <div class="plan-ribbon">✨ Mais completo · Mais vendido</div>
+        <div class="plan-name">Plano Completo</div>
+        <div class="plan-desc">Método + todos os 3 bônus incluídos</div>
+        <div class="price-display">
+          <span class="price-curr">R$</span>
+          <span class="price-val">27</span>
+        </div>
+        <p class="price-note">ou 3x de R$ 9,00 &nbsp;·&nbsp; Pagamento único &nbsp;·&nbsp; Sem mensalidade</p>
+        <a href="https://pay.kirvano.com/1a00419d-b727-433f-b05f-c6d0342199f3" class="btn btn-primary btn-block btn-xl" style="justify-content:center;">
+          Quero o Plano Completo →
+        </a>
+      </div>
+      <div class="plan-card fade-up">
+        <div class="plan-name">Plano Básico</div>
+        <div class="plan-desc">Apenas o método principal (sem bônus)</div>
+        <div class="price-display">
+          <span class="price-curr">R$</span>
+          <span class="price-val" style="font-size:2.8rem;color:var(--text-mid);">19,90</span>
+        </div>
+        <p class="price-note">Pagamento único</p>
+        <a href="https://pay.kirvano.com/45d866d7-1ff1-4976-ac42-ed1dd945a4f6" class="btn btn-secondary btn-block" style="justify-content:center;">
+          Quero o Plano Básico
+        </a>
+      </div>
+    </div>
+    <div class="seals fade-up">
+      <img src="garantia.webp" class="seal-img" alt="Garantia 7 dias" loading="lazy">
+      <img src="pagamento.webp" class="seal-img" alt="Compra 100% segura" loading="lazy">
+      <img src="acesso.webp" class="seal-img" alt="Acesso imediato" loading="lazy">
+    </div>
+    <p class="muted" style="text-align:center;margin-top:16px;">Após aprovação do pagamento, você recebe os dados de acesso no seu e-mail.</p>
+  </div>
+</section>
+
+<!-- ═══ 10. AUTORIDADE ═══ -->
+<section class="author-section">
+  <div class="container">
+    <div class="badge fade-up">Quem criou este método</div>
+    <div class="author-card fade-up">
+      <div class="author-photo-wrap">
+        <img src="aline.webp" class="author-photo" alt="Aline — Criadora do Casamento Memorável" loading="lazy">
+        <span class="author-name-tag">Aline</span>
+      </div>
+      <div>
+        <div class="author-name">Oi, eu sou a Aline!</div>
+        <div class="noivas-badge">🏆 Mais de 500 noivas ajudadas</div>
+        <div class="author-stats">
+          <div class="stat-item">
+            <span class="stat-val">150</span>
+            <span class="stat-lbl">convidados</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val">R$6.697</span>
+            <span class="stat-lbl">gasto total</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val">30+</span>
+            <span class="stat-lbl">casamentos presenciais</span>
+          </div>
+        </div>
+        <p class="author-bio">Em 2022, me casei com 150 convidados e gastei exatamente R$6.697,70. Depois disso, comecei a ajudar pessoas próximas — e mais de 30 casamentos depois, nenhum deles ultrapassou os 7 mil reais.</p>
+        <p class="author-bio">Com o tempo, percebi que os segredos que aprendi valem demais para ficarem só comigo. E decidi colocar tudo em um método que qualquer noiva possa seguir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 11. FAQ ═══ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="fade-up">
+      <div class="badge">Dúvidas frequentes</div>
+      <h2>Perguntas que a gente responde de verdade</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item fade-up">
+        <div class="faq-q"><div class="faq-icon">?</div>Funciona mesmo com menos de R$2.000?</div>
+        <p class="faq-a">Sim. O método é adaptável a diferentes orçamentos. Você vai aprender a priorizar o que realmente importa para o seu nível de investimento — sem cortar o que é essencial.</p>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q"><div class="faq-icon">?</div>E se eu não tiver experiência em organização de eventos?</div>
+        <p class="faq-a">Esse método foi feito exatamente para quem não tem. Cada passo é explicado de forma prática, com listas e scripts prontos. Você não precisa saber nada antes de começar.</p>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q"><div class="faq-icon">?</div>Tenho vergonha de casar simples sendo já mãe. Isso vai me ajudar?</div>
+        <p class="faq-a">O nosso foco não é no "simples" — é no caprichado. Seu casamento vai parecer que foi planejado com muito cuidado, porque vai ser. O que não vai aparecer é o valor que você pagou.</p>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q"><div class="faq-icon">?</div>O pagamento é único? Tem alguma cobrança depois?</div>
+        <p class="faq-a">Pagamento único, sem assinatura, sem cobrança recorrente. Você acessa tudo depois de uma só compra e o conteúdo é seu para sempre. Logo após a aprovação, você recebe os dados de acesso no seu e-mail.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 12. RESUMO ═══ -->
+<section class="summary-section">
+  <div class="container">
+    <div class="fade-up">
+      <div class="badge">Resumo</div>
+      <h2>Não leu tudo?<br>Aqui está o essencial.</h2>
+      <p style="margin-top:14px;">Se a sua meta é ter um casamento bonito, organizado e dentro do orçamento real que você tem — este método foi feito para você.</p>
+    </div>
+    <ul class="summary-bullets">
+      <li class="fade-up"><div class="check-icon">✓</div>Método validado por mais de 500 noivas, nenhuma gastou acima de R$7.000</li>
+      <li class="fade-up"><div class="check-icon">✓</div>Planilha de orçamento, guia DIY e script do grande dia incluídos</li>
+      <li class="fade-up"><div class="check-icon">✓</div>Funciona sem assessoria, sem experiência prévia, sem improviso</li>
+      <li class="fade-up"><div class="check-icon">✓</div>Você compra uma vez e tem acesso para sempre</li>
+      <li class="fade-up"><div class="check-icon">✓</div>7 dias de garantia — ou devolvemos 100% do valor</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ 13. CTA FINAL ═══ -->
+<section class="final-cta">
+  <div class="container">
+    <div class="badge" style="display:inline-flex;">Está pronta?</div>
+    <h2>Seu casamento dos sonhos<br>começa agora.</h2>
+    <p>Não prometemos milagre. Prometemos método.<br>Escolha o seu plano e comece hoje mesmo.</p>
+    <a href="#oferta" class="btn btn-primary btn-xl btn-arrow">Quero meu Casamento Memorável</a>
+    <div class="cta-meta">
+      <div class="cta-meta-item">🔒 Pagamento seguro</div>
+      <div class="cta-meta-item">⚡ Acesso imediato</div>
+      <div class="cta-meta-item">↩️ 7 dias de garantia</div>
+    </div>
+    <div class="seals" style="margin-top:32px;">
+      <img src="garantia.webp" class="seal-img" alt="Garantia 7 dias" loading="lazy">
+      <img src="pagamento.webp" class="seal-img" alt="Compra 100% segura" loading="lazy">
+      <img src="acesso.webp" class="seal-img" alt="Acesso imediato" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 14. WHATSAPP ═══ -->
+<a href="https://wa.me/5541987569669" class="wa-float" target="_blank" rel="noopener" aria-label="Falar pelo WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script>
+(function(){
+  /* ── FADE-UP SCROLL ANIMATION ── */
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}
+    });
+  },{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.fade-up').forEach(function(el){obs.observe(el)});
+
+  /* stagger children */
+  document.querySelectorAll('.deliverables-list,.bonus-cards,.testimonial-grid,.plan-stack,.steps-grid,.faq-list,.summary-bullets').forEach(function(p){
+    Array.from(p.children).forEach(function(c,i){c.style.transitionDelay=(i*.08)+'s'});
+  });
+
+  /* ── COUNTDOWN (48h, persisted in sessionStorage) ── */
+  var KEY='cm_end';
+  var end=parseInt(sessionStorage.getItem(KEY)||'0',10);
+  if(!end||end<Date.now()){
+    end=Date.now()+48*3600000;
+    sessionStorage.setItem(KEY,end);
+  }
+  function pad(n){return n<10?'0'+n:''+n}
+  function tick(){
+    var diff=Math.max(0,end-Date.now());
+    var h=Math.floor(diff/3600000);
+    var m=Math.floor((diff%3600000)/60000);
+    var s=Math.floor((diff%60000)/1000);
+    document.getElementById('cd-h').textContent=pad(h);
+    document.getElementById('cd-m').textContent=pad(m);
+    document.getElementById('cd-s').textContent=pad(s);
+    if(diff>0)setTimeout(tick,1000);
+  }
+  tick();
+
+  /* ── NOTIFICATION FEED ── */
+  var names=['Ana Paula','Mariana','Fernanda','Juliana','Letícia','Camila','Bruna','Tatiana','Roberta','Priscila','Larissa','Amanda','Caroline','Patrícia','Renata','Simone'];
+  var cities=['São Paulo','Rio de Janeiro','Belo Horizonte','Curitiba','Florianópolis','Goiânia','Salvador','Recife','Fortaleza','Porto Alegre','Manaus','Campo Grande','Natal','João Pessoa'];
+  var plans=['Plano Completo','Plano Básico','Plano Completo','Plano Completo','Plano Completo'];
+  var times=['agora mesmo','1 min atrás','2 min atrás','3 min atrás','5 min atrás','há pouco'];
+  var feed=document.getElementById('notif-feed');
+  var active=null;
+  function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+  function showNotif(){
+    if(active){
+      active.classList.add('hide');
+      var old=active;
+      setTimeout(function(){if(old.parentNode)old.parentNode.removeChild(old)},500);
+      active=null;
+    }
+    var t=document.createElement('div');
+    t.className='notif-toast';
+    t.innerHTML='<div class="notif-dot"></div><div><strong>'+pick(names)+'</strong> de '+pick(cities)+' comprou o <strong>'+pick(plans)+'</strong><br><span style="color:var(--text-light);font-size:11px;">'+pick(times)+'</span></div>';
+    feed.appendChild(t);
+    active=t;
+    requestAnimationFrame(function(){requestAnimationFrame(function(){t.classList.add('show')})});
+    setTimeout(function(){
+      t.classList.add('hide');
+      setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);if(active===t)active=null},500);
+    },5000);
+  }
+  setTimeout(function loop(){showNotif();setTimeout(loop,10000+Math.random()*12000)},6000);
+})();
+</script>
+
+</body>
+</html>
