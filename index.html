@@ -1,6 +1,18 @@
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<!-- ════════════════════════════════════════════
+     GOOGLE TAG MANAGER — HEAD (GTM-N664SFDW)
+     ════════════════════════════════════════════ -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N664SFDW');</script>
+<!-- ════════════════════════════════════════════ -->
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Casamento Memorável — Método Completo</title>
@@ -264,6 +276,13 @@ p{color:var(--text-mid);line-height:1.75}
 </head>
 <body>
 
+<!-- ════════════════════════════════════════════
+     GOOGLE TAG MANAGER — BODY (GTM-N664SFDW)
+     ════════════════════════════════════════════ -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N664SFDW"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- ════════════════════════════════════════════ -->
+
 <!-- NOTIFICATION FEED -->
 <div id="notif-feed"></div>
 
@@ -464,7 +483,7 @@ p{color:var(--text-mid);line-height:1.75}
   </div>
 </section>
 
-<!-- ═══ 7. BÔNUS com countdown e urgência ═══ -->
+<!-- ═══ 7. BÔNUS ═══ -->
 <section>
   <div class="container">
     <div class="fade-up">
@@ -563,6 +582,7 @@ p{color:var(--text-mid);line-height:1.75}
       <p style="margin-top:12px;">O método custa menos do que um único item comprado errado.</p>
     </div>
     <div class="plan-stack">
+      <!-- data-plan e data-value são lidos pelo script de rastreamento -->
       <div class="plan-card featured fade-up">
         <div class="plan-ribbon">✨ Mais completo · Mais vendido</div>
         <div class="plan-name">Plano Completo</div>
@@ -572,7 +592,12 @@ p{color:var(--text-mid);line-height:1.75}
           <span class="price-val">27</span>
         </div>
         <p class="price-note">ou 3x de R$ 9,00 &nbsp;·&nbsp; Pagamento único &nbsp;·&nbsp; Sem mensalidade</p>
-        <a href="https://pay.kirvano.com/1a00419d-b727-433f-b05f-c6d0342199f3" class="btn btn-primary btn-block btn-xl" style="justify-content:center;">
+        <a href="https://pay.kirvano.com/1a00419d-b727-433f-b05f-c6d0342199f3"
+           class="btn btn-primary btn-block btn-xl"
+           style="justify-content:center;"
+           data-plan="Plano Completo"
+           data-value="27.00"
+           data-currency="BRL">
           Quero o Plano Completo →
         </a>
       </div>
@@ -584,7 +609,12 @@ p{color:var(--text-mid);line-height:1.75}
           <span class="price-val" style="font-size:2.8rem;color:var(--text-mid);">19,90</span>
         </div>
         <p class="price-note">Pagamento único</p>
-        <a href="https://pay.kirvano.com/45d866d7-1ff1-4976-ac42-ed1dd945a4f6" class="btn btn-secondary btn-block" style="justify-content:center;">
+        <a href="https://pay.kirvano.com/45d866d7-1ff1-4976-ac42-ed1dd945a4f6"
+           class="btn btn-secondary btn-block"
+           style="justify-content:center;"
+           data-plan="Plano Básico"
+           data-value="19.90"
+           data-currency="BRL">
           Quero o Plano Básico
         </a>
       </div>
@@ -766,6 +796,29 @@ p{color:var(--text-mid);line-height:1.75}
     },5000);
   }
   setTimeout(function loop(){showNotif();setTimeout(loop,10000+Math.random()*12000)},6000);
+
+  /* ════════════════════════════════════════════════════════
+     RASTREAMENTO — InitiateCheckout via dataLayer (GTM)
+     Os botões de compra têm data-plan, data-value, data-currency
+     O GTM ouvirá o evento 'initiateCheckout' e disparará o pixel.
+     ════════════════════════════════════════════════════════ */
+  window.dataLayer = window.dataLayer || [];
+
+  document.querySelectorAll('a[data-plan]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var plan  = btn.getAttribute('data-plan');
+      var value = parseFloat(btn.getAttribute('data-value'));
+      var curr  = btn.getAttribute('data-currency');
+
+      /* Evento para o GTM criar a tag InitiateCheckout do Meta Pixel */
+      window.dataLayer.push({
+        event:          'initiateCheckout',
+        planName:       plan,
+        value:          value,
+        currency:       curr
+      });
+    });
+  });
 })();
 </script>
 
